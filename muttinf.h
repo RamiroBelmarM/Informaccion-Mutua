@@ -24,7 +24,18 @@ class MuttInf{
             std::vector<double>().swap(mutual_inf);
             return;
         }
-        MuttInf(std::vector<double > input, double dt){
+        MuttInf(std::vector<double> input, double dt){
+            std::vector<double>().swap(dat);
+            dt_=dt;
+            unsigned int bottom=t_ignore/dt_;
+            for (size_t i=bottom; i< input.size(); i++){
+                dat.push_back(input[i]);
+            }
+            std::vector<double>().swap(mutual_inf);
+            num_mutual=time_max_delay/dt;
+            return;
+        }
+        void set(std::vector<double> input, double dt){
             std::vector<double>().swap(dat);
             dt_=dt;
             unsigned int bottom=t_ignore/dt_;
@@ -48,14 +59,16 @@ class MuttInf{
             return;
         }
         std::vector<double> get_dat(){
-            free_grid();
-            free_array();
             return mutual_inf;
         }
         int get_pos(){
+            return get();
+        }
+        void clear(){
             free_grid();
             free_array();
-            return get();
+            std::vector<double>().swap(mutual_inf);
+            return;
         }
     private:
         void make_test(){

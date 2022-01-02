@@ -13,7 +13,10 @@ int main() {
 
     //se crea el objeto Mutual Information
     //a sus argumentos se pasa los datos y dt
-    MuttInf test(dat, dt);     
+    MuttInf test(dat, dt);
+    
+    //alternativamente
+    //test.set(dat,dt)     
 
     //se inicia el test, limite superior es el maximo valor de tus datos
     // y limite inferior, lo contrario.
@@ -29,6 +32,9 @@ int main() {
     //ten cuidado es mas recomendable inspeccionar primero lo anterior
     double tau=test.get_pos();
 
+    //libera objeto Mutual Information
+    test.clear();
+    
     return 0;
 }
 ```
