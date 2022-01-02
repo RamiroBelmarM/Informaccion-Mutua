@@ -11,7 +11,7 @@ int main() {
     //dt, tiempo de muestreo, se ignoran los primeras observaciones 
     //que cumplan t < 50   
 
-    //se crea el objeto test01
+    //se crea el objeto Mutual Information
     //a sus argumentos se pasa los datos y dt
     MuttInf test(dat, dt);     
 
