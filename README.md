@@ -8,7 +8,7 @@ int main() {
     //debe de tener al menos 1000 observaciones
     std::vector<double> dat; 
 
-    //dt, tiempo de muestre, se ignoran los primeras observaciones 
+    //dt, tiempo de muestreo, se ignoran los primeras observaciones 
     //que cumplan t < 50   
 
     //se crea el objeto test01
