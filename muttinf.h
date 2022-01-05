@@ -87,6 +87,9 @@ class MuttInf{
         void clear(){
             free_grid();
             free_array();
+            std::vector<double>().swap(dat);
+            std::vector<double>().swap(mutual_inf);
+            return;
         }
     private:
         void make_test(){

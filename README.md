@@ -39,6 +39,36 @@ int main() {
 }
 ```
 
+```cpp
+#include "muttinf.h"
+int main() {
+    //para solo obtener el time delay
+
+    //datos bajo estudio
+    //debe de tener al menos 1000 observaciones 
+    std::vector<double> dat; 
+
+    //se crea que el objeto
+    MuttInf test;
+
+    //auto calcula limites
+    test.init();
+
+    //obtener el time delay
+    int tau=test.get_tau();
+
+    //se libera objeto
+    test.clear();
+
+    //atractor
+    //std::cout<< dat[i]<<'\t'<<dat[i+tau]<<std::endl;
+
+    
+    
+    return 0;
+}
+```
+
 # Referencia
 Kliková, B., & Raidl, A. (2011, May). Reconstruction of phase space of dynamical systems using method of time delay. In Proceedings of the 20th Annual Conference of Doctoral Students-WDS (pp. 83-87).
 
