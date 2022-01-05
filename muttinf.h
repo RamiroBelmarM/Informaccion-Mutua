@@ -12,9 +12,8 @@ class MuttInf{
         double dt_;
         double arrist;
         double di_;
-        double time_max_delay=2.5 ; // tiempo maximo para el delay
-        double t_ignore=50; // tiempo ignorado
-        unsigned int n_=400; //division del grid 
+        double t_ignore=20;
+        unsigned int n_=200;
         unsigned int N_;
         unsigned int **matrix;
         double *array_temp;
@@ -24,7 +23,7 @@ class MuttInf{
             std::vector<double>().swap(mutual_inf);
             return;
         }
-        MuttInf(std::vector<double> input, double dt){
+        MuttInf(std::vector<double > input, double dt){
             std::vector<double>().swap(dat);
             dt_=dt;
             unsigned int bottom=t_ignore/dt_;
@@ -32,10 +31,10 @@ class MuttInf{
                 dat.push_back(input[i]);
             }
             std::vector<double>().swap(mutual_inf);
-            num_mutual=time_max_delay/dt;
+            num_mutual=5.0/dt;
             return;
         }
-        void set(std::vector<double> input, double dt){
+        void set(std::vector<double > input, double dt){
             std::vector<double>().swap(dat);
             dt_=dt;
             unsigned int bottom=t_ignore/dt_;
@@ -43,7 +42,7 @@ class MuttInf{
                 dat.push_back(input[i]);
             }
             std::vector<double>().swap(mutual_inf);
-            num_mutual=time_max_delay/dt;
+            num_mutual=5.0/dt;
             return;
         }
         void init(double lim_i, double lim_s){
@@ -54,21 +53,40 @@ class MuttInf{
             make_grid();
             return;
         }
+        void init(){
+            double min=dat[0];
+            double max=dat[0];
+            for (int i=1; i<dat.size(); i++){
+                if (dat[i]>max)
+                    max=dat[i];
+                else{
+                    if (dat[i]<min)
+                        min=dat[i];
+                }
+            }
+            arrist=fabs( max - min );
+            di_=arrist/n_;
+            make_grid();
+            return;
+        }
         void make(){
             make_test();
             return;
         }
         std::vector<double> get_dat(){
+            free_grid();
+            free_array();
             return mutual_inf;
         }
         int get_pos(){
             return get();
         }
+        int get_tau(){
+            return tau();
+        }
         void clear(){
             free_grid();
             free_array();
-            std::vector<double>().swap(mutual_inf);
-            return;
         }
     private:
         void make_test(){
@@ -80,6 +98,25 @@ class MuttInf{
                 clear_matrix();
             }
             return;
+        }
+        int tau(){
+            make_array();
+            clear_matrix();
+            int top=dat.size()/2;
+            double derivative;
+            fill_matrix(0);
+            mutual_inf.push_back(make_mutual_inf(0));
+            clear_matrix();
+            for (size_t i=1; i< top ; i++){
+                fill_matrix(i);
+                mutual_inf.push_back(make_mutual_inf(i));
+                clear_matrix();
+                derivative = (mutual_inf[i]-mutual_inf[i-1])/dt_;
+                if (derivative>0){
+                    return (i);
+                }
+            }
+            return top;
         }
         void make_array(){
             array_temp= new double [n_];
