@@ -65,6 +65,7 @@ class MuttInf{
                 }
             }
             arrist=fabs( max - min );
+            lim_inf = min;
             di_=arrist/n_;
             make_grid();
             return;
