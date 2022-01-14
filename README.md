@@ -51,6 +51,9 @@ int main() {
     //se crea que el objeto
     MuttInf test;
 
+    //add data
+    test.set(dat,dt);
+
     //auto calcula limites
     test.init();
 
