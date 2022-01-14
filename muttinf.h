@@ -6,13 +6,13 @@ class MuttInf{
     private:
         std::vector<double> dat;
         std::vector<double> mutual_inf;
-        unsigned int num_mutual=200;
+        int num_mutual;
         double lim_inf;
         double lim_sup;
         double dt_;
         double arrist;
         double di_;
-        double t_ignore=20;
+        double t_ignore=0;
         unsigned int n_=200;
         unsigned int N_;
         unsigned int **matrix;
@@ -31,7 +31,7 @@ class MuttInf{
                 dat.push_back(input[i]);
             }
             std::vector<double>().swap(mutual_inf);
-            num_mutual=5.0/dt;
+            num_mutual=dat.size()/10;
             return;
         }
         void set(std::vector<double > input, double dt){
@@ -42,7 +42,7 @@ class MuttInf{
                 dat.push_back(input[i]);
             }
             std::vector<double>().swap(mutual_inf);
-            num_mutual=5.0/dt;
+            num_mutual=dat.size()/10;
             return;
         }
         void init(double lim_i, double lim_s){
@@ -75,8 +75,6 @@ class MuttInf{
             return;
         }
         std::vector<double> get_dat(){
-            free_grid();
-            free_array();
             return mutual_inf;
         }
         int get_pos(){
@@ -117,7 +115,7 @@ class MuttInf{
                 clear_matrix();
                 derivative = (mutual_inf[i]-mutual_inf[i-1])/dt_;
                 if (derivative>0){
-                    return (i);
+                    return (i-1);
                 }
             }
             return top;
@@ -224,7 +222,7 @@ class MuttInf{
             for (size_t i=0; i<mutual_inf.size(); ++i){
                 derivative = (mutual_inf[i+1]-mutual_inf[i])/dt_;
                 if (derivative>0){
-                    return (i+1);
+                    return (i);
                 }
             }
             return mutual_inf.size();
