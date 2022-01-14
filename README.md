@@ -10,6 +10,7 @@ int main() {
 
     //dt, tiempo de muestreo, se ignoran los primeras observaciones 
     //que cumplan t < 50   
+    // editar de ser necesario muttinf.h
 
     //se crea el objeto Mutual Information
     //a sus argumentos se pasa los datos y dt
